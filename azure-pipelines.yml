@@ -1,19 +1,37 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
+- master
 
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+variables:
+	serviceConnectionName: 'ARM'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+steps:
+- task: AzureKeyVault@1
+	displayName: "Download key vault variables for Terraform"
+	inputs:
+	  azureSubscription: ${serviceConnectionName}
+	  KeyVaultName: 'NOBS'
+	  SecretsFilter: 'AKSClientId'
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: ${serviceConnectionName}
+    scriptType: 'pscore'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az storage account create -n nobsstorageaccount -g NoBS -l eastus --sku Standard_LRS'
+- task: TerraformTaskV1@0
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    backendServiceArm: ${serviceConnectionName}
+    backendAzureRmResourceGroupName: 'NoBS'
+    backendAzureRmStorageAccountName: 'nobsstorageaccount'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'tf/terraform.tfstate'
+
+- task: TerraformTaskV1@0
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    environmentServiceNameAzureRM: ${serviceConnectionName}

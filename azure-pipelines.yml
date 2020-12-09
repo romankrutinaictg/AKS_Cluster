@@ -5,15 +5,15 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-	serviceConnectionName: 'ARM'
+  serviceConnectionName: 'ARM'
 
 steps:
 - task: AzureKeyVault@1
-	displayName: "Download key vault variables for Terraform"
-	inputs:
-	  azureSubscription: ${serviceConnectionName}
-	  KeyVaultName: 'NOBS'
-	  SecretsFilter: 'AKSClientId'
+  displayName: "Download key vault variables for Terraform"
+  inputs:
+    azureSubscription: ${serviceConnectionName}
+    KeyVaultName: 'NOBS'
+    SecretsFilter: 'AKSClientId'
 - task: AzureCLI@2
   inputs:
     azureSubscription: ${serviceConnectionName}

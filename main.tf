@@ -5,10 +5,14 @@ terraform {
     container_name = "tfstate"
     key = "terraform.state"
   }
+  required_providers {
+    azurerm = {
+      version = "2.0.0"
+    }
+  }
 }
 
 provider azurerm {
-  version = "2.0.0"
   features {}
 }
 
@@ -28,11 +32,11 @@ data "azurerm_key_vault_secret" "keyVaultClientSecret" {
 }
 
 output "ClientID" {
-  value = "${data.azurerm_key_vault_secret.keyVaultClientID.value}"
+  value = data.azurerm_key_vault_secret.keyVaultClientID.value
 }
 
 output "ClientSecret" {
-  value = "${data.azurerm_key_vault_secret.keyVaultClientSecret.value}"
+  value = data.azurerm_key_vault_secret.keyVaultClientSecret.value
 }
 
 resource "azurerm_kubernetes_cluster" "NoBSAKS" {
@@ -47,7 +51,7 @@ resource "azurerm_kubernetes_cluster" "NoBSAKS" {
     vm_size = "Standard_D2_v2"
   }
   service_principal {
-    client_id     = "${data.azurerm_key_vault_secret.keyVaultClientID.value}"
-    client_secret = "${data.azurerm_key_vault_secret.keyVaultClientSecret.value}"
+    client_id     = data.azurerm_key_vault_secret.keyVaultClientID.value
+    client_secret = data.azurerm_key_vault_secret.keyVaultClientSecret.value
   }
 }

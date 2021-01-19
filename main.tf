@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
     resource_group_name = "NoBS"
-    storage_account_name = "NoBSTFState"
+    storage_account_name = "nobsstorageaccount"
     container_name = "tfstate"
     key = "terraform.state"
   }

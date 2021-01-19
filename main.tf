@@ -7,11 +7,16 @@ terraform {
   }
   required_providers {
     azurerm = {
-      features {}
       version = "2.0.0"
     }
   }
 }
+
+provider "azurerm" {
+  version = "=2.0.0"
+  features {}
+}
+
 
 data "azurerm_key_vault" "kv" {
   name                = "NOBS"

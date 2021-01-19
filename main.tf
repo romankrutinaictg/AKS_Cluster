@@ -7,13 +7,10 @@ terraform {
   }
   required_providers {
     azurerm = {
+      features {}
       version = "2.0.0"
     }
   }
-}
-
-provider "azurerm" {
-  features = {}  
 }
 
 data "azurerm_key_vault" "kv" {

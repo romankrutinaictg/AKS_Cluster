@@ -12,10 +12,6 @@ terraform {
   }
 }
 
-provider azurerm {
-  features {}
-}
-
 data "azurerm_key_vault" "kv" {
   name                = "NOBS"
   resource_group_name = var.resourceGroup

@@ -7,7 +7,6 @@ terraform {
   }
   required_providers {
     azurerm = {
-      features = {}
       version = "2.0.0"
     }
   }

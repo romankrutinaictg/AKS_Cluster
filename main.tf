@@ -51,7 +51,7 @@ resource "azurerm_kubernetes_cluster" "NoBSAKS" {
     vm_size = "Standard_D2_v2"
   }
   service_principal {
-    client_id     = data.azurerm_key_vault_secret.keyVaultClientID.value
-    client_secret = data.azurerm_key_vault_secret.keyVaultClientSecret.value
+    client_id     = data.azurerm_key_vault_secret.AKSClientId.value
+    client_secret = data.azurerm_key_vault_secret.AKSClientSecret.value
   }
 }

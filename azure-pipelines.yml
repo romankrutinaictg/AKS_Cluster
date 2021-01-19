@@ -11,12 +11,12 @@ steps:
 - task: AzureKeyVault@1
   displayName: "Download key vault variables for Terraform"
   inputs:
-    azureSubscription: ${serviceConnectionName}
+    azureSubscription: $(serviceConnectionName)
     KeyVaultName: 'NOBS'
     SecretsFilter: 'AKSClientId'
 - task: AzureCLI@2
   inputs:
-    azureSubscription: ${serviceConnectionName}
+    azureSubscription: $(serviceConnectionName)
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
     inlineScript: 'az storage account create -n nobsstorageaccount -g NoBS -l eastus --sku Standard_LRS'
@@ -24,7 +24,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
-    backendServiceArm: ${serviceConnectionName}
+    backendServiceArm: $(serviceConnectionName)
     backendAzureRmResourceGroupName: 'NoBS'
     backendAzureRmStorageAccountName: 'nobsstorageaccount'
     backendAzureRmContainerName: 'tfstate'
@@ -34,4 +34,4 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    environmentServiceNameAzureRM: ${serviceConnectionName}
+    environmentServiceNameAzureRM: $(serviceConnectionName)

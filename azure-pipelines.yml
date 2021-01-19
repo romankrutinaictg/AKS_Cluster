@@ -19,7 +19,7 @@ steps:
     azureSubscription: $(serviceConnectionName)
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
-    inlineScript |
+    inlineScript: |
       az storage account create -n nobsstorageaccount -g NoBS -l eastus --sku Standard_LRS
       az storage container create --name tfstate --account-name nobsstorageaccount
     

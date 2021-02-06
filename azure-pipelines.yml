@@ -37,4 +37,4 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    environmentServiceNameAzureRM: $(serviceConnectionName)
+    backendServiceArm: $(serviceConnectionName)

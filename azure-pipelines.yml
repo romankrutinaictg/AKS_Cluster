@@ -38,3 +38,7 @@ steps:
     provider: 'azurerm'
     command: 'apply'
     backendServiceArm: $(serviceConnectionName)
+    backendAzureRmResourceGroupName: 'NoBS'
+    backendAzureRmStorageAccountName: 'nobsstorageaccount'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'tf/terraform.tfstate'

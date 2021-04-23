@@ -1,3 +1,3 @@
 Name = "NoBS-aks01"
 resourceGroup = "NoBS"
-location = "eastus"
+location = "West Europe"

@@ -19,7 +19,7 @@ provider "azurerm" {
 
 
 data "azurerm_key_vault" "kv" {
-  name                = "NOBS"
+  name                = "NOBSICTG"
   resource_group_name = var.resourceGroup
 }
 
